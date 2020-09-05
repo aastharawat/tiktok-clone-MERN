@@ -9,7 +9,6 @@ function App() {
     async function fetchData() {
       const response = await getPosts;
       setVideos(response);
-      console.log(videos);
     }
     fetchData();
   });
