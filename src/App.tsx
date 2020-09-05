@@ -1,47 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //@ts-check
 import "./App.css";
 import Video from "./components/Video";
+import getPosts from "./components/fetch";
 function App() {
+  const [videos, setVideos] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getPosts;
+      setVideos(response);
+      console.log(videos);
+    }
+    fetchData();
+  });
   return (
     <div className="app">
       <div className="app__videos">
-        <Video
-          url="coverr-lake-and-mountains-1572182323912.mp4"
-          channel="@aastha"
-          description="EPIC MERN STACK"
-          song="coverr-lake-and-mountains"
-          likes={100}
-          messages={20}
-          shares={300}
-        />
-        <Video
-          url="Easy-Morning.mp4"
-          channel="@aastha"
-          description="EPIC MERN STACK"
-          song="Easy-Morning"
-          likes={100}
-          messages={20}
-          shares={300}
-        />
-        <Video
-          url="Hway.mp4"
-          channel="@aastha"
-          description="EPIC MERN STACK"
-          song="Hway LA"
-          likes={100}
-          messages={20}
-          shares={300}
-        />
-        <Video
-          url="coverr-lake-and-mountains-1572182323912.mp4"
-          channel="@aastha"
-          description="EPIC MERN STACK"
-          song="coverr-lake-and-mountains"
-          likes={100}
-          messages={20}
-          shares={300}
-        />
+        {videos.map(
+          ({ url, channel, description, song, likes, messages, shares }) => (
+            <Video
+              url={url}
+              channel={channel}
+              description={description}
+              song={song}
+              likes={likes}
+              messages={messages}
+              shares={shares}
+            />
+          )
+        )}
       </div>
     </div>
   );
